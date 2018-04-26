@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ProveedoresService } from '../../servicios/proveedores.service';
 import { Router, ActivatedRoute } from '@angular/router' //Para navegación programática
+import { AutenticacionService } from '../../servicios/autenticacion.service';
 
 
 @Component({
@@ -26,7 +27,8 @@ export class EditarProvComponent implements OnInit {
   constructor(private pf: FormBuilder,
               private proveedoresService: ProveedoresService,
               private router: Router,
-              private route: ActivatedRoute){  //con esto extraemos el parámetro del id
+              private route: ActivatedRoute, //con esto extraemos el parámetro del id
+              private autenticacionService: AutenticacionService){  
                 if(!this.proveedor){
                   this.proveedor = {};
                 }
@@ -34,7 +36,7 @@ export class EditarProvComponent implements OnInit {
 
   ngOnInit() {
     this.id = this.route.snapshot.params['id'];
-    this.cargarProveedor(this.route.snapshot.params['id']);
+    this.cargarProveedor(this.id);
     this.proveedorForm = this.pf.group({
       nombre: null,
       cif: null,

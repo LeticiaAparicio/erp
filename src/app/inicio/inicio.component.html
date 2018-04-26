@@ -1,21 +1,53 @@
-<div class="col-md-12">
-  <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item active" aria-current="page">Inicio</li>
-    </ol>
-  </nav>
+<div *ngIf="!getLogged()" class="autenticacion">
+  <h1 style="font-size: 22px; text-align:center">Bienvenido a nuestra aplicación</h1>
+  <h4 style="font-size: 22px; text-align:center">Por favor
+    <a routerLink="inicio-sesion">inicie sesión.</a>
+  </h4>
 </div>
-<div class="col-md-12 menu-inicio">
-  <div class="box verde" routerLink="/compras"> <!-- Esta clase es nuestra -->
-    <span><i class="fas fa-shopping-cart"></i></span>
-    <p>Compras</p>
+<div *ngIf="getLogged()">
+  <div class="container">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page">Inicio</li>
+      </ol>
+    </nav>
   </div>
-  <div class="box rojo"> <!-- Esta clase es nuestra -->
-    <span><i class="fas fa-hand-holding-usd"></i></span>
-    <p>Ventas</p>
-  </div>
-  <div class="box azul"> <!-- Esta clase es nuestra -->
-    <span><i class="fas fa-calculator"></i></span>
-    <p>Contabilidad</p>
+  <div class="container menu-inicio">
+    <div class="box verde" routerLink="/compras" *ngIf="autenticacionService.getPermisoCompras()">
+      <!-- Esta clase es nuestra -->
+      <span>
+        <i class="fas fa-shopping-cart"></i>
+      </span>
+      <p>Compras</p>
+    </div>
+    <div class="box rojo" routerLink="/ventas">
+      <!-- Esta clase es nuestra -->
+      <span>
+        <i class="fas fa-hand-holding-usd"></i>
+      </span>
+      <p>Ventas</p>
+    </div>
+    <div class="box azul">
+      <!-- Esta clase es nuestra -->
+      <span>
+        <i class="fas fa-calculator"></i>
+      </span>
+      <p>Contabilidad</p>
+    </div>
+    <div class="box amarillo" routerLink="/listado-usuarios" *ngIf="autenticacionService.getPermisoListadoUsuarios()">
+      <!-- Esta clase es nuestra -->
+      <span>
+        <i class="fas fa-users"></i>
+      </span>
+      <p>Usuarios</p>
+    </div>
+    <div class="box naranja" routerLink="/listado-sesiones">
+      <!-- *ngIf="sesionesService.getPermisoListadoSesiones()" -->
+      <!-- Esta clase es nuestra -->
+      <span>
+        <i class="fas fa-sign-out-alt"></i>      
+      </span>
+      <p>Sesiones</p>
+    </div>
   </div>
 </div>

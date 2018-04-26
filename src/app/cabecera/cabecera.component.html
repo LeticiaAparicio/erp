@@ -1,25 +1,19 @@
 <nav class="navbar navbar-expand-md bg-light mb-4">
   <a class="navbar-brand" routerLink="/">ERP App</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse"
+    aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarCollapse">
+    <!-- <ul class="navbar-nav ml-auto">
+      <button class="btn btn-primary" routerLink="/registro">Registrar</button>
+    </ul> -->
     <ul class="navbar-nav ml-auto">
-      <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"> 
-        <a class="nav-link" routerLink="/">Inicio <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" routerLink="/ventas">Ventas</a>
-      </li>
-      <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" routerLink="/compras">Compras</a>
-      </li>
-      <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" routerLink="/contabilidad">Contabilidad <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" routerLink="/recursos-humanos">Recursos Humanos</a>
-      </li>
+      <div class="sesion">
+        <span *ngIf="autenticacionService.nombre" > <i class="fas fa-user-circle"></i> {{autenticacionService.nombre}}  </span>
+        <button *ngIf="!getLogged()" class="btn btn-primary" routerLink="/inicio-sesion">Iniciar sesión</button>
+        <button *ngIf="getLogged()" class="btn btn-primary" (click)="autenticacionService.logout()">Cerrar sesión</button>
+      </div>
     </ul>
   </div>
 </nav>

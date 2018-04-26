@@ -1,65 +1,99 @@
+<div class="barra-fija">
+  <div title="Proveedores" routerLink="/proveedores">
+    <i class="fas fa-address-book"></i>
+  </div>
+  <div title="Facturas" routerLink="/listado-facturas">
+    <i class="fas fa-money-bill-alt"></i>
+  </div>
+</div>
 <div class="col-md-12">
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a routerLink="/inicio">Inicio</a></li>
-      <li class="breadcrumb-item"><a routerLink="/compras">Compras</a></li>
-      <li class="breadcrumb-item"><a routerLink="/proveedores">Proveedores</a></li>
-      <li class="breadcrumb-item active" aria-current="page">Editar proveedor</li>
+      <li class="breadcrumb-item">
+        <a routerLink="/inicio">Inicio</a>
+      </li>
+      <li class="breadcrumb-item">
+        <a routerLink="/compras">Compras</a>
+      </li>
+      <li class="breadcrumb-item">
+        <a routerLink="/proveedores">Proveedores</a>
+      </li>
+      <li class="breadcrumb-item active" aria-current="page" *ngIf="autenticacionService.getPermisoProveedores()">
+        Editar proveedor
+      </li>
+      <li class="breadcrumb-item active" aria-current="page" *ngIf="!autenticacionService.getPermisoProveedores()">
+        Visualizar proveedor
+      </li>
     </ol>
   </nav>
 </div>
 <div class="col-md-12 titulo">
-  <span>Editar proveedor</span>
+  <span *ngIf="autenticacionService.getPermisoProveedores()">Editar proveedor</span>
+  <span *ngIf="!autenticacionService.getPermisoProveedores()">Visualizar proveedor</span>
   <button class="btn btn-primary" routerLink="/proveedores">
     Volver
   </button>
 </div>
-  <div class="col-md-8 offset-md-2 col-12"> <!-- Esta clase es de Bootstrap -->
-    <div class="formularios"> <!-- Creamos esta clase para poner borde al formulario -->
-    <h1>Editar proveedor</h1>
+<div class="col-md-8 offset-md-2 col-12">
+  <!-- Esta clase es de Bootstrap -->
+  <div class="formularios">
+    <!-- Creamos esta clase para poner borde al formulario -->
+    <h1 *ngIf="autenticacionService.getPermisoProveedores()">Editar proveedor</h1>
+    <h1 *ngIf="!autenticacionService.getPermisoProveedores()">Visualizar proveedor</h1>
     <form [formGroup]="proveedorForm" (ngSubmit)="editarProv()">
-      <div class="form-group"> <!-- Los campos en Bootstrap van todos con esta clase -->
-        <input type="text" class="form-control" formControlName="nombre" placeholder="Nombre" [(ngModel)]="proveedor.nombre">
+      <div class="form-group">
+        <!-- Los campos en Bootstrap van todos con esta clase -->
+        <input type="text" class="form-control" formControlName="nombre" placeholder="Nombre" [(ngModel)]="proveedor.nombre" [readonly]="!autenticacionService.getPermisoProveedores()">
       </div>
-      <div class="form-group"> 
-        <input type="text" class="form-control" ngModel formControlName="cif" placeholder="CIF" [(ngModel)]="proveedor.cif">
+      <div class="form-group">
+        <input type="text" class="form-control" ngModel formControlName="cif" placeholder="CIF" [(ngModel)]="proveedor.cif" [readonly]="!autenticacionService.getPermisoProveedores()">
       </div>
-      <div class="form-group"> 
-        <input type="text" class="form-control" formControlName="domicilio" placeholder="Domicilio" [(ngModel)]="proveedor.domicilio">
+      <div class="form-group">
+        <input type="text" class="form-control" formControlName="domicilio" placeholder="Domicilio" [(ngModel)]="proveedor.domicilio"
+          [readonly]="!autenticacionService.getPermisoProveedores()">
       </div>
-      <div class="form-group"> 
-        <input type="number" class="form-control" formControlName="cp" placeholder="Código Postal" [(ngModel)]="proveedor.cp">
+      <div class="form-group">
+        <input type="number" class="form-control" formControlName="cp" placeholder="Código Postal" [(ngModel)]="proveedor.cp" [readonly]="!autenticacionService.getPermisoProveedores()">
       </div>
-      <div class="form-group"> 
-        <input type="text" class="form-control" formControlName="localidad" placeholder="Localidad" [(ngModel)]="proveedor.localidad">
+      <div class="form-group">
+        <input type="text" class="form-control" formControlName="localidad" placeholder="Localidad" [(ngModel)]="proveedor.localidad"
+          [readonly]="!autenticacionService.getPermisoProveedores()">
       </div>
-      <div class="form-group"> 
+      <div class="form-group" *ngIf="autenticacionService.getPermisoProveedores()">
         <!-- <label for="provincia">Provincia</label> -->
         <select class="form-control" formControlName="provincia" [(ngModel)]="proveedor.provincia">
-          <option *ngFor="let provincia of provincias" [ngValue]="provincia" [ngClass]="{bandera: provincia === 'Gibraltar'}"> <!-- Estos corchetes lo que hacen es decir 
-                                                                            que el atributo de value es un objeto de Javascript. 
-                                                                            Cuando llega ahí coge el valor de la varible provincia -->
+          <option *ngFor="let provincia of provincias" [ngValue]="provincia" [ngClass]="{bandera: provincia === 'Gibraltar'}">
+            <!-- Estos corchetes lo que hacen es decir 
+            que el atributo de value es un objeto de Javascript. 
+            Cuando llega ahí coge el valor de la varible provincia -->
             {{provincia}}
           </option>
         </select>
       </div>
-      <div class="form-group"> 
-        <input type="text" class="form-control" formControlName="telefono" placeholder="Teléfono" [(ngModel)]="proveedor.telefono">
+      <div class="form-group" *ngIf="!autenticacionService.getPermisoProveedores()">
+        <input type="text" class="form-control" formControlName="provincia" [(ngModel)]="proveedor.provincia" [readonly]="!autenticacionService.getPermisoProveedores()">
       </div>
-      <div class="form-group"> 
-        <input type="email" class="form-control"  formControlName="email" placeholder="E-mail" [(ngModel)]="proveedor.email">
+      <div class="form-group">
+        <input type="text" class="form-control" formControlName="telefono" placeholder="Teléfono" [(ngModel)]="proveedor.telefono"
+          [readonly]="!autenticacionService.getPermisoProveedores()">
       </div>
-      <div class="form-group"> 
-        <input type="text" class="form-control" formControlName="contacto" placeholder="Contacto" [(ngModel)]="proveedor.contacto">
+      <div class="form-group">
+        <input type="email" class="form-control" formControlName="email" placeholder="E-mail" [(ngModel)]="proveedor.email" [readonly]="!autenticacionService.getPermisoProveedores()">
       </div>
-      <button type="submit" class="btn btn-primary">
-      <span>Guardar cambios</span>
-      <!-- <span *ngIf="enviando">
+      <div class="form-group">
+        <input type="text" class="form-control" formControlName="contacto" placeholder="Contacto" [(ngModel)]="proveedor.contacto"
+          [readonly]="!autenticacionService.getPermisoProveedores()">
+      </div>
+      <div *ngIf="autenticacionService.getPermisoProveedores()">
+        <button type="submit" class="btn btn-primary">
+          <span>Guardar cambios</span>
+          <!-- <span *ngIf="enviando">
         <i class="fas fa-spinner fa-pulse"></i>
-      </span> -->
-    </button>
-      <button routerLink="/proveedores" class="btn btn-danger">Cancelar</button>
+        </span> -->
+        </button>
+        <button routerLink="/proveedores" class="btn btn-danger">Cancelar</button>
+      </div>
     </form>
     <!-- <p class="alert alert-warning" [@alerta]="estadoAlerta">{{mensaje}}</p> -->
-  </div>  
+  </div>
 </div>

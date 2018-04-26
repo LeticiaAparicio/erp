@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProveedoresService } from '../../servicios/proveedores.service';
 import { trigger, state, style, animate, transition } from '@angular/animations'; //Animaciones
-import { setTimeout } from 'timers';
+import { AutenticacionService } from '../../servicios/autenticacion.service';
 
 
 @Component({
@@ -19,12 +19,15 @@ import { setTimeout } from 'timers';
 })
 export class ListadoProvComponent implements OnInit {
 
-  mensaje: string;
+  mensaje:string = "Error de conexión con el servidor"
   mostrarAlerta:boolean = false;
   proveedores:any;
   id:string;
+  desde:number = 0;
+  totales:number;
 
-  constructor(private proveedoresService: ProveedoresService) { }
+  constructor(private proveedoresService: ProveedoresService,
+              private autenticacionService: AutenticacionService) { }
 
   ngOnInit() {
     this.cargarProveedores();
@@ -35,13 +38,25 @@ export class ListadoProvComponent implements OnInit {
   }
 
   cargarProveedores(){
-    this.proveedoresService.getProveedores()
+    this.proveedoresService.getProveedores(this.desde)
                 .subscribe((resp:any)=>{  //la tipamos para que no de problemas
                   this.proveedores = resp.proveedores; //esta respuesta la estamos mandando desde proveedor.js de SERVIDOR BACKEND
-                  console.log(this.proveedores);
+                  this.totales = resp.totales;
                 }, error => {
                   console.log(error);
                 });
+  }
+
+  setDesde(valor){
+    var desde = this.desde + valor;
+    if(desde >= this.totales){
+      return;
+    } else if(desde < 0) {
+      return;
+    } else {
+      this.desde += valor;
+      this.cargarProveedores();
+    }
   }
 
   obtenerId(id){
@@ -59,11 +74,17 @@ export class ListadoProvComponent implements OnInit {
                     }, 2500);
                     //Ponemos lo siguiente para gestionar el error
                   },(error:any)=>{
+                    if(error.error.mensaje === 'token incorrecto'){
+                      this.mensaje = "Su sesión ha caducado, inicie sesión."
+                    }
                     this.mensaje = 'Error de conexión con el servidor';
                     this.mostrarAlerta = true;
                     setTimeout(()=>{
                       this.mostrarAlerta = false;
                     }, 2500);
                   })
+    setTimeout(()=>{
+      this.mensaje = "Erro de conexión con el servidor";
+    }, 3000)
   }
 }

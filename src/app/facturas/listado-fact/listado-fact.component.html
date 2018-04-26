@@ -15,44 +15,36 @@
       <li class="breadcrumb-item">
         <a routerLink="/compras">Compras</a>
       </li>
-      <li class="breadcrumb-item active" aria-current="page">Proveedores</li>
+      <li class="breadcrumb-item active" aria-current="page">Facturas</li>
     </ol>
   </nav>
 </div>
 <div class="col-md-12 titulo">
-  <span>Proveedores</span>
-  <span class="alert alert-warning" [@alerta]="estadoAlerta">{{mensaje}}</span>
-  <button class="btn btn-primary" routerLink="/crear-proveedor" *ngIf="autenticacionService.getPermisoProveedores()">
+  <span>Facturas</span>
+  <button class="btn btn-primary" routerLink="/crear-factura">
     <i class="fas fa-plus-circle"></i>
   </button>
 </div>
 <div class="col-md-12">
-  <table class="table table-bordered table-stripped">
+  <table class="table table-bordered table-stripped tabla-facturas">
     <tr>
       <th>Nombre</th>
       <th>CIF</th>
-      <th>Localidad</th>
+      <th>Total</th>
       <th></th>
     </tr>
-    <tr *ngFor="let proveedor of proveedores">
-      <td>{{proveedor.nombre}}</td>
-      <td>{{proveedor.cif}}</td>
-      <td>{{proveedor.localidad}}</td>
+    <tr *ngFor="let factura of facturas">
+      <td>{{factura.proveedor}}</td>
+      <td>{{factura.cif}}</td>
+      <td>{{factura.total}}</td>
       <td>
-        <button class="btn btn-success" routerLink="/editar-proveedor/{{proveedor._id}}">
-          <span *ngIf="autenticacionService.getPermisoProveedores()">
-            <i class="fas fa-pen-square"></i>
-          </span>
-          <span *ngIf="!autenticacionService.getPermisoProveedores()">
-              <i class="fas fa-eye"></i>            
-          </span>
+        <button class="btn btn-success" routerLink="/editar-factura/{{factura._id}}">
+          <i class="fas fa-pen-square"></i>
         </button>
         <!-- Button trigger modal -->
-        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" (click)="obtenerId(proveedor._id)" 
-        *ngIf="autenticacionService.getPermisoProveedores()">
+        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal" (click)="obtenerId(factura._id)">
           <i class="fas fa-trash-alt"></i>
         </button>
-
         <!-- Modal -->
         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog" role="document">
@@ -66,11 +58,11 @@
                 </button>
               </div>
               <div class="modal-body">
-                ¿Está seguro de eliminar el proveedor?
+                ¿Está seguro de eliminar la factura?
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="borrarProveedor()">Aceptar</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="borrarFacturas()">Aceptar</button>
               </div>
             </div>
           </div>
@@ -78,12 +70,4 @@
       </td>
     </tr>
   </table>
-  <div class="paginacion">
-    <button class="btn btn-primary" (click)="setDesde(-5)">
-      <i class="fas fa-arrow-alt-circle-left"></i>
-    </button>
-    <button class="btn btn-primary" (click)="setDesde(5)">
-      <i class="fas fa-arrow-alt-circle-right"></i>
-    </button>
-  </div>
 </div>
