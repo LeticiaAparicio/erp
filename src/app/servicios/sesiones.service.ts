@@ -26,14 +26,14 @@ export class SesionesService {
       });
   }
 
-  postSesiones(sesiones) {
-    let url = 'http://localhost:3000/sesiones';
-    return this.http.post(url, sesiones)
-                .map((resp: any) => {
-                  console.log(resp);
-                  return resp;
-                });
-  }
+  // postSesiones(sesiones) {
+  //   let url = 'http://localhost:3000/sesiones';
+  //   return this.http.post(url, sesiones)
+  //               .map((resp: any) => {
+  //                 console.log(resp);
+  //                 return resp;
+  //               });
+  // }
 
 
 

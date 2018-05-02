@@ -1,28 +1,41 @@
 <div>
-  <div class="col-md-12">
+  <div class="container">
     <nav aria-label="breadcrumb">
       <ol class="breadcrumb">
         <li class="breadcrumb-item">
           <a routerLink="/inicio">Inicio</a>
         </li>
-        <li class="breadcrumb-item active" aria-current="page">Registro de sesiones</li>
+        <li class="breadcrumb-item">
+          <a routerLink="/listado-usuarios">Usuarios</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">Sesiones</li>
       </ol>
     </nav>
   </div>
-  <div class="col-md-12 titulo">
+  <div class="container titulo">
     <span>Registro de sesiones</span>
+    <button class="btn btn-primary" routerLink="/listado-usuarios">Volver al listado</button>
   </div>
-  <div class="col-md-12">
+  <div class="container">
     <table class="table table-bordered table-stripped">
       <tr>
         <th>Nombre</th>
-        <th>LogIn</th>
-        <th>LogOut</th>
+        <th>LogIn / LogOut</th>
+        <th>Duración</th>
       </tr>
       <tr *ngFor="let sesion of sesiones">
         <td>{{sesion.nombre}}</td>
-        <td>{{sesion.login}}</td>
-        <td>{{sesion.logout}}</td>
+        <td>
+          <span *ngIf="sesion.login">
+            <i class="fas fa-sign-in-alt valido"></i>
+            {{sesion.login | date: 'dd/MM/yyyy hh:mm:ss'}}
+          </span>
+          <span *ngIf="sesion.logout ">
+              {{sesion.logout | date: 'dd/MM/yyyy hh:mm:ss'}}
+              <i class="fas fa-sign-out-alt no-valido"></i>
+          </span>
+          </td>
+          <td>{{sesion.duracion}}</td>
       </tr>
     </table>
   </div>

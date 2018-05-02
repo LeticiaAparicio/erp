@@ -149,10 +149,11 @@ button {
     height: 40px;
 }
 
-.cabecera .campo:nth-child(1){width: 30%}
-.cabecera .campo:nth-child(2){width: 30%}
+.cabecera .campo:nth-child(1){width: 5%}
+.cabecera .campo:nth-child(2){width: 25%}
 .cabecera .campo:nth-child(3){width: 30%}
-.cabecera .campo:nth-child(4){width: 10%}
+.cabecera .campo:nth-child(4){width: 30%}
+.cabecera .campo:nth-child(5){width: 10%}
 
 .cabecera .campo p {
     font-weight: bold;
@@ -168,7 +169,7 @@ button {
     text-indent: 5px;
     margin: 5px;
     box-sizing: border-box;
-    height: 40px;
+    height: 50px;
     border-bottom: 1px solid lightslategray;
 }
 
@@ -176,10 +177,13 @@ button {
     padding-left: 4px;
 }
 
-.fila .campo:nth-child(1){width: 30%}
-.fila .campo:nth-child(2){width: 30%}
+.fila .campo:nth-child(1){width: 5%; border-bottom: none;}
+.fila .campo:nth-child(2){width: 15%}
 .fila .campo:nth-child(3){width: 30%}
-.fila .campo:nth-child(4){width: 10%; border-bottom: none;}
+.fila .campo:nth-child(4){width: 30%}
+.fila .campo:nth-child(5){
+    width: 20%; border-bottom: none;
+}
 
 .fila .nuevo {
     margin: 5px;
@@ -239,9 +243,18 @@ form.fila:first-child(1){
 .paginacion {
     margin: 20px 0;
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
 }
 
 .paginacion button {
     margin: 10px;
+}
+
+.oculto {
+    visibility: hidden;
+}
+
+.btn:focus {
+    outline: none !important;
+    box-shadow: none !important;
 }

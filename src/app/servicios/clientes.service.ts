@@ -10,9 +10,9 @@ export class ClientesService {
 
   constructor(private http: HttpClient) { }
 
-  getClientes(){
+  getClientes(nombre){
 
-    let url = 'http://localhost:3000/clientes'; 
+    let url = 'http://localhost:3000/clientes/' + nombre; 
     return this.http.get(url) 
                   .map( (resp:any) => { 
                     return resp; 

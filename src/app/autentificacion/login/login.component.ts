@@ -3,7 +3,6 @@ import { FormControl, FormGroup, FormBuilder, Validators} from '@angular/forms';
 import { AutenticacionService } from '../../servicios/autenticacion.service';
 import { Router } from '@angular/router';
 import { trigger, state, style, animate, transition } from '@angular/animations'; //Animaciones
-import { SesionesService } from '../../servicios/sesiones.service';
 
 @Component({
   selector: 'app-login',
@@ -30,7 +29,6 @@ export class LoginComponent implements OnInit {
 
   constructor(private fl: FormBuilder,
               private autenticacionService: AutenticacionService,
-              private sesionesService: SesionesService,
               private router: Router) { }
 
   ngOnInit() {
@@ -51,11 +49,8 @@ export class LoginComponent implements OnInit {
     this.autenticacionService.login(this.usuario)
                       .subscribe((resp:any)=>{
                         this.enviando = false;
+                        this.crearSesion();
                         this.router.navigate(['/']); //le decimos que vaya al inicio en caso de que exista el usuario
-                        this.sesiones = this.guardarSesion();
-                        this.sesionesService.postSesiones(this.sesiones)
-                          .subscribe((resp:any)=>{
-                          });
                       }, (error:any)=>{
                         this.mostrarAlerta = true;
                         if(error.error.mensaje){
@@ -81,5 +76,16 @@ export class LoginComponent implements OnInit {
     return guardarSesion;
   }
 
-
+  crearSesion(){
+    this.sesiones = {
+      nombre: this.autenticacionService.nombre,
+      login: new Date()
+    }
+    this.autenticacionService.postSesiones(this.sesiones)
+              .subscribe((resp:any)=>{
+                console.log(resp);
+              },(error)=>{
+                console.log(error);
+              })
+  }
 }

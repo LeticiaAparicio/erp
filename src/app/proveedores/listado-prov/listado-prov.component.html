@@ -79,11 +79,24 @@
     </tr>
   </table>
   <div class="paginacion">
-    <button class="btn btn-primary" (click)="setDesde(-5)">
-      <i class="fas fa-arrow-alt-circle-left"></i>
+      <button class="btn btn-primary" [ngClass]="{'oculto': desde < 25}" (click)="retrocederTramoBotones()">
+          <i class="fas fa-angle-double-left"></i>
+      </button>
+    <button class="btn btn-primary" [ngClass]="{'oculto': desde === 0}" (click)="setDesde(-5); retrocederBotones()">
+        <i class="fas fa-angle-left"></i>    
     </button>
-    <button class="btn btn-primary" (click)="setDesde(5)">
-      <i class="fas fa-arrow-alt-circle-right"></i>
+    <div *ngFor="let boton of botones">
+    <!-- botones es el array que me acabo de crear en el TS -->
+    <button *ngIf="boton <= (numeroBotones + 1)" [ngClass]="{'btn-outline-primary': boton - 1 === desde / 5}" class="btn btn-primary" 
+             (click)="updateDesde(boton*5-5)">
+      {{boton}}
+    </button>
+    </div>
+    <button class="btn btn-primary" [ngClass]="{'oculto': desde >= totales - 5}" (click)="setDesde(5); avanzarBotones();">
+        <i class="fas fa-angle-right"></i>    
+    </button>
+    <button class="btn btn-primary" [ngClass]="{'oculto': desde >= (totales - 25)}" (click)="avanzarTramoBotones()">
+        <i class="fas fa-angle-double-right"></i>
     </button>
   </div>
 </div>

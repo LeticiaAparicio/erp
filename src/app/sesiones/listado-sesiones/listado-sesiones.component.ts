@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { SesionesService } from '../../servicios/sesiones.service';
 import { AutenticacionService } from '../../servicios/autenticacion.service';
+import { ActivatedRoute } from '@angular/router' //Para navegación programática
+
 
 @Component({
   selector: 'app-listado-sesiones',
@@ -10,16 +11,18 @@ import { AutenticacionService } from '../../servicios/autenticacion.service';
 export class ListadoSesionesComponent implements OnInit {
 
   sesiones:any;
+  nombre:string;
 
-  constructor(private sesionesService: SesionesService,
-              private autenticacionService: AutenticacionService) { }
+  constructor(private autenticacionService: AutenticacionService,
+              private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.nombre = this.route.snapshot.params['nombre'];
     this.cargarSesiones();
   }
 
   cargarSesiones(){
-    this.sesionesService.getSesiones()
+    this.autenticacionService.getSesiones(this.nombre)
                     .subscribe((resp:any)=>{
                       this.sesiones = resp.sesiones;
                     }, (error)=>{

@@ -42,6 +42,8 @@ export class ListadoUsuariosComponent implements OnInit {
   mensaje:string = 'Error de conexión con el servidor';
   editarFila:string;
   id:string;
+  online:any = [];
+
 
   constructor(private autenticacionService: AutenticacionService,
               private cuf: FormBuilder,
@@ -78,6 +80,18 @@ export class ListadoUsuariosComponent implements OnInit {
     this.autenticacionService.getUsuarios()
                     .subscribe((resp:any)=>{
                       this.usuarios = resp.usuarios;
+                      this.usuarios.forEach(usuario => {
+                        this.autenticacionService.getSesiones(usuario.nombre)
+                                .subscribe((resp:any)=>{
+                                  console.log(resp.sesiones.length)
+                                  if(resp.sesiones.length % 2 === 0){
+                                    this.online.push(true);
+                                  } else {
+                                    this.online.push(false);                               
+                                  }
+                                  console.log(this.online);
+                                });
+                      });
                     }, (error)=>{
                       console.log(error);
                     })
@@ -195,6 +209,19 @@ export class ListadoUsuariosComponent implements OnInit {
                     setTimeout(()=>{
                       this.mostrarAlerta = false;
                     }, 2500)
+                  })
+  }
+
+  getOnline(nombre){
+    this.autenticacionService.getSesiones(nombre)
+                  .subscribe((resp:any)=>{
+                    if(resp.sesiones.length % 2 === 0){
+                      return true;
+                    } else {
+                      return false;
+                    }
+                  },(error)=>{
+                    console.log(error);
                   })
   }
 }

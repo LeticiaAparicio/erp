@@ -28,6 +28,7 @@ import { AutenticacionGuard } from './servicios/autenticacion.guard';
 import { ListadoUsuariosComponent } from './autentificacion/listado-usuarios/listado-usuarios.component';
 import { ListadoSesionesComponent } from './sesiones/listado-sesiones/listado-sesiones.component';
 import { SesionesService } from './servicios/sesiones.service';
+import { EditarClientesComponent } from './clientes/editar-cliente/editar-cliente.component';
 
 
 const rutas:Routes = [
@@ -36,7 +37,7 @@ const rutas:Routes = [
   {path:'inicio-sesion' , component: LoginComponent},
   {path:'compras', component: ComprasComponent, canActivate: [AutenticacionGuard]},
   {path:'listado-usuarios', component: ListadoUsuariosComponent, canActivate: [AutenticacionGuard]},
-  {path:'listado-sesiones', component: ListadoSesionesComponent, canActivate: [AutenticacionGuard]},
+  {path:'listado-sesiones/:nombre', component: ListadoSesionesComponent, canActivate: [AutenticacionGuard]},
   {path:'ventas', component: VentasComponent, canActivate: [AutenticacionGuard]},
   {path:'proveedores', component: ListadoProvComponent, canActivate: [AutenticacionGuard]},
   {path:'crear-proveedor', component: CrearProvComponent, canActivate: [AutenticacionGuard]},
@@ -46,6 +47,7 @@ const rutas:Routes = [
   {path:'editar-factura/:id', component: EditarFactComponent, canActivate: [AutenticacionGuard]},
   {path:'listado-clientes', component: ListadoClientesComponent, canActivate: [AutenticacionGuard]},
   {path:'crear-cliente', component: CrearClienteComponent, canActivate: [AutenticacionGuard]},
+  {path:'editar-cliente/:id', component: EditarClientesComponent, canActivate: [AutenticacionGuard]},
   {path:'**', component: InicioComponent},
 
 ]
@@ -68,7 +70,8 @@ const rutas:Routes = [
     VentasComponent,
     ListadoClientesComponent,
     ListadoUsuariosComponent,
-    ListadoSesionesComponent
+    ListadoSesionesComponent,
+    EditarClientesComponent
   ],
   imports: [
     BrowserModule,
