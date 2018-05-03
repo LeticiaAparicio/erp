@@ -29,6 +29,10 @@ import { ListadoUsuariosComponent } from './autentificacion/listado-usuarios/lis
 import { ListadoSesionesComponent } from './sesiones/listado-sesiones/listado-sesiones.component';
 import { SesionesService } from './servicios/sesiones.service';
 import { EditarClientesComponent } from './clientes/editar-cliente/editar-cliente.component';
+import { CrearPresupuestoComponent } from './presupuestos/crear-presupuesto/crear-presupuesto.component';
+import { EditarPresupuestoComponent } from './presupuestos/editar-presupuesto/editar-presupuesto.component';
+import { ListadoPresupuestoComponent } from './presupuestos/listado-presupuesto/listado-presupuesto.component';
+import { PresupuestosService } from './servicios/presupuestos.service';
 
 
 const rutas:Routes = [
@@ -48,6 +52,9 @@ const rutas:Routes = [
   {path:'listado-clientes', component: ListadoClientesComponent, canActivate: [AutenticacionGuard]},
   {path:'crear-cliente', component: CrearClienteComponent, canActivate: [AutenticacionGuard]},
   {path:'editar-cliente/:id', component: EditarClientesComponent, canActivate: [AutenticacionGuard]},
+  {path: 'listado-presupuestos', component: ListadoPresupuestoComponent, canActivate: [AutenticacionGuard]},
+  {path: 'crear-presupuesto', component: CrearPresupuestoComponent, canActivate: [AutenticacionGuard]},
+  {path: 'editar-presupuesto/:id', component: EditarPresupuestoComponent, canActivate: [AutenticacionGuard]},
   {path:'**', component: InicioComponent},
 
 ]
@@ -71,7 +78,10 @@ const rutas:Routes = [
     ListadoClientesComponent,
     ListadoUsuariosComponent,
     ListadoSesionesComponent,
-    EditarClientesComponent
+    EditarClientesComponent,
+    CrearPresupuestoComponent,
+    EditarPresupuestoComponent,
+    ListadoPresupuestoComponent
   ],
   imports: [
     BrowserModule,
@@ -80,7 +90,13 @@ const rutas:Routes = [
     ReactiveFormsModule,
     BrowserAnimationsModule
   ],
-  providers: [ProveedoresService, FacturasService, ClientesService, AutenticacionService, SesionesService, AutenticacionGuard],
+  providers: [ProveedoresService, 
+              FacturasService, 
+              ClientesService, 
+              PresupuestosService,
+              AutenticacionService, 
+              SesionesService, 
+              AutenticacionGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

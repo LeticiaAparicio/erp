@@ -11,8 +11,23 @@ export class ClientesService {
   constructor(private http: HttpClient) { }
 
   getClientes(nombre){
+    let url = 'http://localhost:3000/clientes/nombre/' + nombre; 
+    return this.http.get(url) 
+                  .map( (resp:any) => { 
+                    return resp; 
+                  });
+  }
 
-    let url = 'http://localhost:3000/clientes/' + nombre; 
+  getClientesLocalidad(localidad){
+    let url = 'http://localhost:3000/clientes/localidad/' + localidad; 
+    return this.http.get(url) 
+                  .map( (resp:any) => { 
+                    return resp; 
+                  });
+  }
+
+  getClientesNombreLocalidad(consulta){
+    let url = 'http://localhost:3000/clientes/mixto/' + consulta.nombre + '/' + consulta.localidad; 
     return this.http.get(url) 
                   .map( (resp:any) => { 
                     return resp; 
