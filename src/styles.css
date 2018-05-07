@@ -308,3 +308,8 @@ form.fila:first-child(1){
       transform: scale(1.0);
     }
   }
+
+  /*Para poner a la derecha los números de los input que tengan readonly*/
+  input[readonly]{
+      text-align: right;
+  }
