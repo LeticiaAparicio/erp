@@ -162,11 +162,12 @@
 }
 
 .fila .campo {
-    text-indent: 5px;
+    /* text-indent: 5px; */
     margin: 5px;
-    box-sizing: border-box;
-    height: 50px;
+    /* box-sizing: border-box; */
+    height: 40px;
     border-bottom: 1px solid lightslategray;
+    position: relative;
 }
 
 .fila .campo p {
@@ -215,11 +216,13 @@ form.fila:first-child(1){
 
 .fila select {
     height: 40px;
+    box-sizing: border-box;
 }
 
 .fila.editable .campo {
-    margin: 5px;
+    /* margin: 5px; */
     height: 40px;
+    box-sizing: border-box;
     border-bottom: 1px solid lightslategray;
 }
 

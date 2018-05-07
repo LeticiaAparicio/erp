@@ -21,13 +21,13 @@ export class EditarPresupuestoComponent implements OnInit {
   id:string;
 
   constructor(private fp: FormBuilder,
-    private presupuestosService: PresupuestosService,
-    private router: Router,
-    private route: ActivatedRoute) { 
-      if(!this.presupuesto){
-        this.presupuesto = {};
-      }
-    }
+              private presupuestosService: PresupuestosService,
+              private router: Router,
+              private route: ActivatedRoute) { 
+                if(!this.presupuesto){
+                  this.presupuesto = {};
+                }
+              }
 
   ngOnInit() {
     this.id = this.route.snapshot.params['id'];
@@ -46,8 +46,7 @@ export class EditarPresupuestoComponent implements OnInit {
   iniciarFormulario(){
     this.formPre = this.fp.group({
       cliente: [ null , Validators.required ],
-      cif: ['' , [Validators.required, 
-                  Validators.minLength(9)]],
+      cif: ['' , [Validators.required, Validators.minLength(9)]],
       fecha: null,
       concepto: null,
       base: [null, [Validators.required, Validators.max(100000)]],
@@ -65,7 +64,7 @@ export class EditarPresupuestoComponent implements OnInit {
     if(valor < 0) {
       var resultado = Math.round(-valor*100)/100 * -1;
     } else {
-        var resultado = Math.round(valor*100)/100;
+      var resultado = Math.round(valor*100)/100;
     }
     return resultado;
   }
@@ -99,8 +98,8 @@ export class EditarPresupuestoComponent implements OnInit {
   editarPre(){
     this.presupuesto = this.guardarPre();
     this.presupuestosService.putPresupuesto(this.id, this.presupuesto)
-    .subscribe((res:any)=>{
-      this.router.navigate(['/listado-presupuestos']);
+                            .subscribe((res:any)=>{
+    this.router.navigate(['/listado-presupuestos']);
     })
   }
 

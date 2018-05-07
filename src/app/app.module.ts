@@ -33,6 +33,9 @@ import { CrearPresupuestoComponent } from './presupuestos/crear-presupuesto/crea
 import { EditarPresupuestoComponent } from './presupuestos/editar-presupuesto/editar-presupuesto.component';
 import { ListadoPresupuestoComponent } from './presupuestos/listado-presupuesto/listado-presupuesto.component';
 import { PresupuestosService } from './servicios/presupuestos.service';
+import { CrearArticuloComponent } from './articulos/crear-articulo/crear-articulo.component';
+import { ListadoArticulosComponent } from './articulos/listado-articulos/listado-articulos.component';
+import { ArticulosService } from './servicios/articulos.service';
 
 
 const rutas:Routes = [
@@ -55,6 +58,8 @@ const rutas:Routes = [
   {path: 'listado-presupuestos', component: ListadoPresupuestoComponent, canActivate: [AutenticacionGuard]},
   {path: 'crear-presupuesto', component: CrearPresupuestoComponent, canActivate: [AutenticacionGuard]},
   {path: 'editar-presupuesto/:id', component: EditarPresupuestoComponent, canActivate: [AutenticacionGuard]},
+  {path: 'listado-articulos', component: ListadoArticulosComponent, canActivate: [AutenticacionGuard]},
+  {path: 'crear-articulo', component: CrearArticuloComponent, canActivate: [AutenticacionGuard]},
   {path:'**', component: InicioComponent},
 
 ]
@@ -81,7 +86,9 @@ const rutas:Routes = [
     EditarClientesComponent,
     CrearPresupuestoComponent,
     EditarPresupuestoComponent,
-    ListadoPresupuestoComponent
+    ListadoPresupuestoComponent,
+    CrearArticuloComponent,
+    ListadoArticulosComponent
   ],
   imports: [
     BrowserModule,
@@ -96,7 +103,7 @@ const rutas:Routes = [
               PresupuestosService,
               AutenticacionService, 
               SesionesService, 
-              AutenticacionGuard],
+              AutenticacionGuard, ArticulosService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

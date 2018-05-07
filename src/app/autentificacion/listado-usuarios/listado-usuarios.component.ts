@@ -89,13 +89,15 @@ export class ListadoUsuariosComponent implements OnInit {
                                   } else {
                                     this.online.push(false);                               
                                   }
-                                  console.log(this.online);
-                                });
-                      });
-                    }, (error)=>{
-                      console.log(error);
-                    })
-  }
+                                },(error)=>{
+                                  console.log(error);
+                                })
+                              });
+                              console.log(this.online);
+                            }, (error)=>{
+                              console.log(error);
+                            })
+                  }
 
   crearUsuario(){
     this.enviando = true;
@@ -212,16 +214,16 @@ export class ListadoUsuariosComponent implements OnInit {
                   })
   }
 
-  getOnline(nombre){
-    this.autenticacionService.getSesiones(nombre)
-                  .subscribe((resp:any)=>{
-                    if(resp.sesiones.length % 2 === 0){
-                      return true;
-                    } else {
-                      return false;
-                    }
-                  },(error)=>{
-                    console.log(error);
-                  })
-  }
+  // getOnline(nombre){
+  //   this.autenticacionService.getSesiones(nombre)
+  //                 .subscribe((resp:any)=>{
+  //                   if(resp.sesiones.length % 2 === 0){
+  //                     return true;
+  //                   } else {
+  //                     return false;
+  //                   }
+  //                 },(error)=>{
+  //                   console.log(error);
+  //                 })
+  // }
 }
