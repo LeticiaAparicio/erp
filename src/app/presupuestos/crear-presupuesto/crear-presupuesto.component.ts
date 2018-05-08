@@ -27,6 +27,7 @@ export class CrearPresupuestoComponent implements OnInit {
     this.cargarDatos();
     this.formPre = this.fp.group({
       cliente: null,
+      cif: null,
       fecha: null,
       items: this.fp.array([
         this.initItem() 
@@ -48,7 +49,8 @@ export class CrearPresupuestoComponent implements OnInit {
       articulo: null,
       cantidad: null,
       precio: null,
-      importe: null
+      importe: null,
+      cif: null
     })
   }
 
@@ -90,6 +92,15 @@ export class CrearPresupuestoComponent implements OnInit {
   detectarCambios(){
     this.formPre.valueChanges
               .subscribe(valor =>{
+                var nombreCliente = valor.cliente; //valor.cliente, ese cliente viene de algo del HTML
+                var clienteCargado = this.clientes.find(function(cliente){
+                  return cliente.nombre === nombreCliente;
+                });
+                if(clienteCargado){
+                  this.formPre.value.cif = clienteCargado.cif;
+                } else {
+                  this.formPre.value.cif = '';
+                }
                 var importe = 0;
                 var suma = 0;
                 var i;
@@ -100,6 +111,8 @@ export class CrearPresupuestoComponent implements OnInit {
                   });
                   if(articuloCargado){
                     this.formPre.value.items[i].precio = articuloCargado.precio; 
+                  } else {
+                    this.formPre.value.items[i].precio = 0;
                   }
                   this.formPre.value.items[i].importe = this.redondear(valor.items[i].cantidad * this.formPre.value.items[i].precio);
                   suma += valor.items[i].importe;
@@ -114,7 +127,7 @@ export class CrearPresupuestoComponent implements OnInit {
     this.presupuesto = this.guardarPresupuesto();
     this.presupuestosService.postPresupuesto(this.presupuesto)
                       .subscribe((resp:any)=>{
-                        this.router.navigate(['/listado-articulos']);
+                        this.router.navigate(['/listado-presupuestos']);
                       },(error)=>{
                         console.log(error);
                       })
@@ -123,6 +136,7 @@ export class CrearPresupuestoComponent implements OnInit {
   guardarPresupuesto(){
     const guardarPresupuesto = {
       cliente: this.formPre.get('cliente').value,
+      cif: this.formPre.get('cif').value,
       fecha: this.formPre.get('fecha').value,
       items: this.formPre.get('items').value,
       suma: this.formPre.get('suma').value,
