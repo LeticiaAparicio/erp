@@ -26,6 +26,14 @@ export class PresupuestosService {
                       });
   }
 
+  getTotalesPorCliente(){
+    let url = 'http://localhost:3000/presupuesto/cliente';
+    return this.http.get(url)
+                  .map( (resp:any) => {
+                    return resp;
+                  });
+  }
+
   postPresupuesto(presupuesto){
     let url = "http://localhost:3000/presupuesto";
     return this.http.post(url, presupuesto)

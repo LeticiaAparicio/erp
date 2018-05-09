@@ -120,9 +120,9 @@
     margin-left: 100px;
 }
 
-.breadcrumb, .autenticacion {
+/* .breadcrumb, .autenticacion {
     margin-top: 80px;
-}
+} */
 
 .sesion {
     display: flex;
@@ -263,7 +263,7 @@ form.fila:first-child(1){
 }
 
 .resultados p:hover {
-    color: crimson;
+    color: #dc143c;
     cursor: pointer;
 }
 
